@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 typedef struct list_elem
 {
@@ -260,6 +259,10 @@ void insert_by_index(list1 *list_ptr, int index, int value)
             tmp->next = tmp2;
             tmp1->next = tmp;
             list_ptr->size++;
+            if(index == 0)
+            {
+                list_ptr->first = tmp;
+            }
         }
         else 
         {
