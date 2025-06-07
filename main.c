@@ -194,17 +194,10 @@ int get_by_index(list1 *list_ptr, int index)
 {
     l_elem *tmp = NULL;
     int res = 0;
-    if (list_ptr->size)
+    if (abs(index) < list_ptr->size)
     {
-        if (abs(index) < list_ptr->size)
-        {
-            tmp = move(list_ptr, index);
-            res = tmp -> x;
-        }
-        else 
-        {
-            printf("get_by_index(%d): index %d out of range\n", index, index);
-        }
+        tmp = move(list_ptr, index);
+        res = tmp -> x;
     }
     else 
     {
@@ -216,19 +209,12 @@ int get_by_index(list1 *list_ptr, int index)
 void set_by_index(list1 *list_ptr, int index, int value)
 {
     l_elem *tmp = NULL;
-    if (list_ptr->size)
+    if (abs(index) < list_ptr->size)
     {
-        if (abs(index) < list_ptr->size)
-        {
-            tmp = move(list_ptr, index);
-            tmp -> x = value;
-        }
-        else 
-        {
-            printf("set_by_index(%d): index %d out of range\n", index, index);
-        }
+        tmp = move(list_ptr, index);
+        tmp -> x = value;
     }
-    else
+    else 
     {
         printf("set_by_index(%d): index %d out of range\n", index, index);
     }
