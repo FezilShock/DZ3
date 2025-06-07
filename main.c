@@ -278,6 +278,6 @@ void delete_by_index(list1 *list_ptr, int index)
     }
     else
     {
-        printf("delete_by_index(%d): index %d out of range\n",index, index);
+        printf("delete_by_index(%d): index %d out of range",index, index);
     }
 }
