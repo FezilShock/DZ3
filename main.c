@@ -3,14 +3,12 @@
 
 typedef struct list_elem
 {
-    // Here's your code
     int x;
     struct list_elem *next;
 }l_elem;
 
 typedef struct
 {
-    // Here's your code
     l_elem *first;
     l_elem *last;
     int size;
@@ -24,6 +22,7 @@ int get_by_index(list1 *list_ptr, int index);
 void set_by_index(list1 *list_ptr, int index, int value);
 void insert_by_index(list1 *list_ptr, int index, int value);
 void delete_by_index(list1 *list_ptr, int index);
+l_elem *move (list1 *list_ptr, int n);
 
 int main()
 {
@@ -101,9 +100,7 @@ int main()
     clear_list(&mylist);
     return 0;
 }
-//
-//  Here is your code of implemented functions
-//
+
 
 void init_list(list1 *list_ptr)
 {
@@ -116,9 +113,9 @@ void append(list1 *list_ptr, int value)
 {
     l_elem *tmp = NULL;
     tmp = (l_elem *) malloc(sizeof(l_elem));
-    if(tmp)
+    if (tmp)
     {
-        if(list_ptr->size == 0)
+        if (list_ptr->size == 0)
         {
             list_ptr->first = tmp;
             list_ptr->last = tmp;
@@ -139,9 +136,9 @@ void print_list(list1 *list_ptr)
 {
     int i;
     l_elem *tmp = NULL;
-    tmp = list_ptr->first;
-    if(list_ptr->size)
+    if (list_ptr->size)
     {
+        tmp = list_ptr->first;
         printf("print_list(): ");
         for(i = 0; i < list_ptr->size; i++)
         {
@@ -150,21 +147,17 @@ void print_list(list1 *list_ptr)
         }
         printf("\n");
     }
-    else 
-    {
-        printf("print_list(): list is empty\n");
-    }
 }
 
 void clear_list(list1 *list_ptr)
 {
     l_elem *tmp1 = NULL;
     l_elem *tmp2 = NULL;
-    if(list_ptr->size)
+    if (list_ptr->size)
     {
         tmp1 = list_ptr -> first;
         printf("clear_elemets: ");
-        for(; list_ptr->size; list_ptr->size--)
+        for (; list_ptr->size; list_ptr->size--)
         {
             tmp2 = tmp1->next;
             printf("%d ", tmp1->x);
@@ -175,25 +168,21 @@ void clear_list(list1 *list_ptr)
         list_ptr->first = NULL;
         list_ptr->last = NULL;
     }
-    else
-    {
-        printf("clear_list(): list is empty\n");
-    }
 }
 
 l_elem *move (list1 *list_ptr, int n)
 {
     l_elem *p = list_ptr->first;
-    if(n >= 0)
+    if (n >= 0)
     {
-        for(; n; n--)
+        for (; n; n--)
         {
             p = p->next;
         }
     }
     else
     {
-        for(n = list_ptr->size + n; n; n--)
+        for (n += list_ptr->size; n; n--)
         {
             p = p->next;
         }
@@ -205,9 +194,9 @@ int get_by_index(list1 *list_ptr, int index)
 {
     l_elem *tmp = NULL;
     int res = 0;
-    if(list_ptr->size)
+    if (list_ptr->size)
     {
-        if(abs(index) < list_ptr->size)
+        if (abs(index) < list_ptr->size)
         {
             tmp = move(list_ptr, index);
             res = tmp -> x;
@@ -219,7 +208,7 @@ int get_by_index(list1 *list_ptr, int index)
     }
     else 
     {
-        printf("get_by_index(%d): list is empty\n", index);
+        printf("get_by_index(%d): index %d out of range\n", index, index);
     }
     return res;
 }
@@ -227,9 +216,9 @@ int get_by_index(list1 *list_ptr, int index)
 void set_by_index(list1 *list_ptr, int index, int value)
 {
     l_elem *tmp = NULL;
-    if(list_ptr->size)
+    if (list_ptr->size)
     {
-        if(abs(index) < list_ptr->size)
+        if (abs(index) < list_ptr->size)
         {
             tmp = move(list_ptr, index);
             tmp -> x = value;
@@ -241,17 +230,17 @@ void set_by_index(list1 *list_ptr, int index, int value)
     }
     else
     {
-        printf("set_by_index(%d): list is empty\n", index);
+        printf("set_by_index(%d): index %d out of range\n", index, index);
     }
 }
 
 void insert_by_index(list1 *list_ptr, int index, int value)
 {
     l_elem *tmp = NULL, *tmp1 = NULL, *tmp2 = NULL;
-    if(abs(index) < list_ptr->size)
+    if (abs(index) < list_ptr->size)
     {
         tmp = (l_elem *) malloc(sizeof(l_elem));
-        if(tmp)
+        if (tmp)
         {
             tmp1 = move(list_ptr, index - 1);
             tmp2 = move(list_ptr, index);
@@ -259,7 +248,7 @@ void insert_by_index(list1 *list_ptr, int index, int value)
             tmp->next = tmp2;
             tmp1->next = tmp;
             list_ptr->size++;
-            if(index == 0)
+            if (index == 0)
             {
                 list_ptr->first = tmp;
             }
@@ -278,9 +267,9 @@ void insert_by_index(list1 *list_ptr, int index, int value)
 void delete_by_index(list1 *list_ptr, int index)
 {
     l_elem *tmp = NULL, *tmp1 = NULL, *tmp2 = NULL;
-    if(abs(index) < list_ptr->size)
+    if (abs(index) < list_ptr->size)
     {
-        if(list_ptr->size == 1)
+        if (list_ptr->size == 1)
         {
             free(list_ptr->first);
             list_ptr->first = NULL;
@@ -290,9 +279,9 @@ void delete_by_index(list1 *list_ptr, int index)
         else
         {
             tmp = move(list_ptr, index);
-            if(tmp == list_ptr->first)
+            if (tmp == list_ptr->first)
                 list_ptr->first = list_ptr->first->next;
-            if(tmp == list_ptr->last)
+            if (tmp == list_ptr->last)
                 list_ptr->last = move(list_ptr, index - 1);
             tmp2 = tmp->next;
             tmp1 = move(list_ptr, index - 1 );
