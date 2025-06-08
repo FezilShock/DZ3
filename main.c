@@ -22,7 +22,7 @@ int get_by_index(list1 *list_ptr, int index);
 void set_by_index(list1 *list_ptr, int index, int value);
 void insert_by_index(list1 *list_ptr, int index, int value);
 void delete_by_index(list1 *list_ptr, int index);
-l_elem *move(list1 *list_ptr, int n);
+l_elem *move(list1 *list_ptr, int index);
 
 int main()
 {
@@ -177,19 +177,19 @@ void clear_list(list1 *list_ptr)
     }
 }
 
-l_elem *move (list1 *list_ptr, int n)
+l_elem *move (list1 *list_ptr, int index)
 {
     l_elem *p = list_ptr->first;
-    if (n >= 0)
+    if (index >= 0)
     {
-        for (; n; n--)
+        for (; index; index--)
         {
             p = p->next;
         }
     }
     else
     {
-        for (n += list_ptr->size; n; n--)
+        for (index += list_ptr->size; index; index--)
         {
             p = p->next;
         }
