@@ -173,7 +173,7 @@ void clear_list(list1 *list_ptr)
     }
     else
     {
-        printf("clear_list(): list is empty\n");
+        printf("clear_elements: list is empty\n");
     }
 }
 
